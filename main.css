@@ -61,6 +61,9 @@ img {
   .memory-game-blocks .game-block.isClicked{
     transform: rotateY(180deg);
   }
+  .memory-game-blocks.no-clicking{
+    pointer-events: none;
+  }
   .control-buttons{
     background-color: #333333d6;
     position: fixed;
@@ -74,7 +77,7 @@ img {
     transform: translate(-50%,-50%);
     left: 50%;
     top: 50%;
-    position: relative;
+    position: absolute;
     color: white;
     font-weight: bold;
     font-size: 40px;
