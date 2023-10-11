@@ -25,13 +25,14 @@ blocks.forEach((block, index) => {
 });
 
 //  flip block function
-function flipBlock(Block) {
-    Block.classList.add("isClicked");
-    let allFlippedBlocks = blocks.filter(flippedBlock => flippedBlock.classList.contains('isClicked'));
+function flipBlock(selectedBlock) {
+    selectedBlock.classList.add("isClicked");
+    let allFlippedBlocks = blocks.filter(flippedBlock => flippedBlock.classList.contains("isClicked"));
     if (allFlippedBlocks.length === 2) {
+        console.log('Two Flipped Blocks Selected');
         stopClicking();
         checkMatchedBlocks(allFlippedBlocks[0], allFlippedBlocks[1]);
-      }
+    }
 }
 
 // make a shuffle array
@@ -45,12 +46,40 @@ function shuffle(array) {
         temp = array[current]
         array[current] = array[random];
         array[random] = temp;
-
     }
     return array;
 }
 
 // limit clicking
 function stopClicking() {
-    blockscontainer.classList.add('no-clicking');
+    blockscontainer.classList.add("no-clicking");
+    
 }
+
+// after duration (match or not match with game)
+function stopClicking() {
+    blockscontainer.classList.add("no-clicking");
+    setTimeout(() => {
+        blockscontainer.classList.remove("no-clicking");
+    }, duration);
+}
+
+function checkMatchedBlocks(firstBlock, secondBlock) {
+
+    let triesElement = document.querySelector('.tries-count span');
+    if (firstBlock.dataset.technology === secondBlock.dataset.technology){
+      firstBlock.classList.remove("isClicked");
+      firstBlock.classList.add("has-match");
+
+      secondBlock.classList.remove("isClicked");
+      secondBlock.classList.add("has-match");
+
+    }else {
+        triesElement.innerHTML = parseInt(triesElement.innerHTML) +1;
+        setTimeout(() => {
+            firstBlock.classList.remove("isClicked");
+            secondBlock.classList.remove("isClicked");
+        }, duration);
+    }
+}  
+
